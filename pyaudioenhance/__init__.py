@@ -20,4 +20,4 @@ def enhance():
         audio = enhance_function(args.dtype, args.multiplier, filepath)
         outpath = outdir / filepath.name
         outpath = outpath.with_suffix(suffix)
-        audio.export(outpath, bitrate=args.bitrate)
+        audio.export(outpath, format=args.format, bitrate=args.bitrate)
