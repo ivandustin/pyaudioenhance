@@ -3,7 +3,5 @@ from .core.scale import scale as scale_function
 
 
 def scale(dtype: type, x: ndarray) -> ndarray:
-    m = iinfo(dtype).max
-    n = x.max()
-    y = scale_function(m, n, x)
-    return y.astype(dtype)
+    info = iinfo(dtype)
+    return scale_function(info.max, x.max(), x).clip(info.min, info.max).astype(dtype)
