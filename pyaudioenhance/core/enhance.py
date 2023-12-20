@@ -1,4 +1,3 @@
-from functools import partial
 from pydub import AudioSegment
 from numpy import array, stack
 from .resample import resample
