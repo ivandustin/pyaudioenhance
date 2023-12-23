@@ -1,16 +1,7 @@
-from numpy import ndarray, iinfo, abs, longdouble
+from numpy import ndarray, iinfo, int32
 from .core.scale import scale as scale_function
 
 
-def scale(dtype: type, x: ndarray) -> ndarray:
-    info = iinfo(dtype)
-    return (
-        scale_function(
-            abs([info.min, info.max], dtype=longdouble).max(),
-            abs(x, dtype=longdouble).max(),
-            x,
-        )
-        .round()
-        .clip(info.min, info.max)
-        .astype(dtype)
-    )
+def scale(n: ndarray) -> ndarray:
+    y = iinfo(int32)
+    return scale_function(n.min(), n.max(), y.min, y.max, n).round().astype(int32)

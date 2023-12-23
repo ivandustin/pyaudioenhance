@@ -1,2 +1,2 @@
-def scale(y, x, n):
-    return (n / x) * y
+def scale(xa, xb, ya, yb, n):
+    return (n - xa) * (yb - ya) / (xb - xa) + ya
