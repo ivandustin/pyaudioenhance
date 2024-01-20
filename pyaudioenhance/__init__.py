@@ -6,7 +6,7 @@ from .enhance import enhance as enhance_function
 def enhance():
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
     parser.add_argument("directory", type=Path)
-    parser.add_argument("--multiplier", type=int, default=10, help="Sample multiplier")
+    parser.add_argument("--multiplier", type=int, default=4, help="Sample multiplier")
     parser.add_argument("--format", type=str, default="mp3", help="Output format")
     parser.add_argument("--bitrate", type=str, default="320k", help="Output bitrate")
     args = parser.parse_args()
@@ -15,7 +15,8 @@ def enhance():
     suffix = f".{args.format}"
     filepaths = args.directory.glob("*")
     for filepath in filepaths:
-        audio = enhance_function(args.multiplier, filepath)
         outpath = outdir / filepath.name
         outpath = outpath.with_suffix(suffix)
-        audio.export(outpath, format=args.format, bitrate=args.bitrate)
+        if not outpath.exists():
+            audio = enhance_function(args.multiplier, filepath)
+            audio.export(outpath, format=args.format, bitrate=args.bitrate)
